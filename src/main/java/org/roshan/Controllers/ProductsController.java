@@ -1,31 +1,32 @@
 package org.roshan.Controllers;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.roshan.RequestDTO.ProductDTO;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/products")
 public class ProductsController {
 
-    @GetMapping("/products")
+    @GetMapping()
     public String getAllProducts(){
    return "Inside GetAll prods"    ;
 
     }
-@GetMapping("/products/{productId}")
+    @GetMapping("/{productId}")
     public String getSingleProduct(@PathVariable ("productId") Long productId){
-        return "inside Single product"+ productId;
+        return "inside Single product with id "+ productId;
     }
-    @PostMapping("/products")
-    public String addNewProduct(){
-        return "Adding a new prod";
+    @PostMapping()
+    public String addNewProduct(@RequestBody ProductDTO productDTO ){
+        return "Adding a new prod with following details :"+ productDTO;
     }
-    public String updateProduct(){
-        return "Update product";
+    @PutMapping("/{productId}")
+    public String updateProduct(@PathVariable ("productId") Long productId){
+        return "Updated product with id" +productId;
 
     }
-    public String deleteAproduct(){
-        return "deleted a product";
+    @DeleteMapping("/{productId}")
+    public String deleteAproduct(@PathVariable ("productId") Long productId){
+        return "deleted a product with id " + productId;
     }
 }
